@@ -11,10 +11,7 @@
  */
 const swapPairs = head => {
 
-  if (!head)
-    return null;
-
-  if (!head.next)
+  if (!head || !head.next)
     return head;
 
   const c = head.next.next;
