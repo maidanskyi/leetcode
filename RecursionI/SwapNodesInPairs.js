@@ -22,6 +22,7 @@ const swapPairs = head => {
 
 }
 
+/*
 const list = {
   val: 1,
   next: {
@@ -43,3 +44,4 @@ const list = {
 }
 
 console.log(JSON.stringify(swapPairs(list)));
+*/
