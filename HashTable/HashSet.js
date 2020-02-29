@@ -1,23 +1,21 @@
 class MyHashSet {
 
-  constructor() {
-    this.dataSet = Object.create(null);
-  }
-
   add(key) {
-    this.dataSet[key] = null;
+    this[key] = null;
   }
 
   remove(key) {
     if (this.contains(key))
-      delete this.dataSet[key];
+      delete this[key];
   }
 
   contains(key) {
-    return key in this.dataSet;
+    return key in this;
   }
 
 }
+
+Object.setPrototypeOf(MyHashSet.prototype, null);
 
 const obj = new MyHashSet();
 obj.contains(1);
