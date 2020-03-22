@@ -13,11 +13,16 @@
 const buildTree = (inorder, postorder) => {
 
   if (!inorder.length || !postorder.length) return null;
-  const map = Object.create(null);
+  const inorderMap = Object.create(null);
+  const postorderMap = Object.create(null);
 
-  for (let i = postorder.length - 1; i > -1; i--) {
-    map[postorder[i]] = i;
-  }
+  inorder.forEach((el, i) => {
+    inorderMap[el] = i;
+  });
+
+  postorder.forEach((el, i) => {
+    postorderMap[el] = i;
+  });
 
   const getNode = (start, end = inorder.length) => {
 
@@ -25,21 +30,21 @@ const buildTree = (inorder, postorder) => {
 
     let index = 0;
     for (let i = start; i < end; i++) {
-      if (index < map[inorder[i]]) index = map[inorder[i]];
+      if (index < postorderMap[inorder[i]]) index = postorderMap[inorder[i]];
     }
 
     return  {
       val: postorder[index],
-      left: getNode(start, inorder.indexOf(postorder[index])),
-      right: getNode(inorder.indexOf(postorder[index]) + 1, end),
+      left: getNode(start, inorderMap[ postorder[index] ]),
+      right: getNode(inorderMap[ postorder[index] ] + 1, end),
     }
 
   }
 
   return {
     val: postorder[postorder.length - 1],
-    left: getNode(0, inorder.indexOf(postorder[postorder.length - 1])),
-    right: getNode(inorder.indexOf(postorder[postorder.length - 1]) + 1),
+    left: getNode(0, inorderMap[ postorder[postorder.length - 1] ]),
+    right: getNode(inorderMap[ postorder[postorder.length - 1] ] + 1),
   }
 
 }
