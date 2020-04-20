@@ -13,12 +13,10 @@ const reverseList = (head) => {
 
   let reversed = null;
   while (head) {
-    let tmp = head.next;
-    reversed = {
-      val: head.val,
-      next: reversed,
-    }
-    head = tmp;
+    const next = head.next;
+    head.next = reversed;
+    reversed = head;
+    head = next;
   }
 
   return reversed;
