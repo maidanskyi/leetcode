@@ -18,12 +18,10 @@ const oddEvenList = (head) => {
   let lastEven = head.next;
 
   while (lastEven.next && lastEven.next.next) {
-    const currOdd = lastEven.next;
-    const currEven = lastEven.next.next;
-    lastOdd.next = currOdd;
-    lastEven.next = currEven;
-    lastOdd = currOdd;
-    lastEven = currEven;
+    lastOdd.next = lastEven.next;
+    lastEven.next = lastEven.next.next;
+    lastOdd = lastOdd.next;
+    lastEven = lastEven.next;
   }
 
   if (!lastEven.next) {
@@ -46,12 +44,22 @@ console.log(JSON.stringify(oddEvenList({
       val: 3,
       next: {
         val: 4,
+        next: null,
+      },
+    },
+  },
+})));
+console.log(JSON.stringify(oddEvenList({
+  val: 1,
+  next: {
+    val: 2,
+    next: {
+      val: 3,
+      next: {
+        val: 4,
         next: {
           val: 5,
-          next: {
-            val: 6,
-            next: null,
-          },
+          next: null,
         },
       },
     },
