@@ -41,7 +41,9 @@ class MyLinkedList {
     const node = {
       val,
       next: this.head,
+      prev: null,
     }
+    if (this.head) this.head.prev = node;
     this.head = node;
     if (!this.length) this.tail = node;
     this.length++;
@@ -57,10 +59,10 @@ class MyLinkedList {
     this.tail.next = {
       val,
       next: null,
-    }
+      prev: this.tail,
+    };
 
     this.tail = this.tail.next;
-
     this.length++;
   }
 
@@ -81,6 +83,7 @@ class MyLinkedList {
       this.head = {
         val,
         next: this.head,
+        pre: null,
       }
       this.length++;
       if (!this.tail) this.tail = this.head;
@@ -91,6 +94,7 @@ class MyLinkedList {
       this.tail.next = {
         val,
         next: null,
+        prev: this.tail,
       }
       this.length++;
       this.tail = this.tail.next;
@@ -108,7 +112,8 @@ class MyLinkedList {
     currNode.next = {
       val,
       next: currNode.next,
-    }
+      prev: currNode,
+    };
     this.length++;
 
   }
@@ -123,6 +128,7 @@ class MyLinkedList {
 
     // delete head
     if (index === 0) {
+      if (this.head.next) this.head.next.prev = null;
       this.head = this.head.next;
       this.length--;
       return;
@@ -136,6 +142,7 @@ class MyLinkedList {
       currIndex++;
     }
 
+    if (currNode.next.next) currNode.next.next.prev = currNode;
     currNode.next = currNode.next.next;
     this.length--;
 
