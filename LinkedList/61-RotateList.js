@@ -14,52 +14,51 @@ const rotateRight = (head, k) => {
 
   if (!head || !head.next || !k) return head;
 
-  let currNode = head;
+  let first = head;
+  let second = head;
   let listLength = 1;
+  let askedK = k;
 
-  while (currNode.next) {
-    currNode = currNode.next;
-    listLength += 1;
+  // let's find a list length or a specific element that is a new tail
+  while (first.next) {
+
+    first = first.next;
+    k--;
+    listLength++;
+
+    if (k >= 0) continue;
+
+    second = second.next;
+
   }
 
-  const tail = currNode;
-  const newTailIndex = k === listLength
-    ? 0
-    : k > listLength
-      ? listLength - k % listLength
-      : listLength - k;
-
-  if (!newTailIndex || newTailIndex === listLength) return head;
-
-  currNode = head;
-  currIndex = 1;
-
-  while (currIndex !== newTailIndex) {
-    currNode = currNode.next;
-    currIndex += 1;
+  if (askedK - listLength === 0) return head;
+  if (askedK - listLength < 0) {
+    const newHead = second.next;
+    second.next = null;
+    first.next = head;
+    return newHead;
   }
 
-  const newHead = currNode.next;
-  currNode.next = null;
-  tail.next = head;
-
-  return newHead;
+  return rotateRight(head, askedK % listLength);
 
 }
 
-console.log(rotateRight({
-  val: 1,
-  next: {
-    val: 2,
+console.log(JSON.stringify(
+  rotateRight({
+    val: 1,
     next: {
-      val: 3,
+      val: 2,
       next: {
-        val: 4,
+        val: 3,
         next: {
-          val: 5,
-          next: null,
-        }
+          val: 4,
+          next: {
+            val: 5,
+            next: null,
+          }
+        },
       },
     },
-  },
-}, 10));
+  }, 7)
+));
