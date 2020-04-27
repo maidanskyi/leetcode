@@ -10,9 +10,10 @@ const search = (nums, target) => {
 
   let from = 0;
   let to = nums.length;
+  let middle;
 
   while (to - from) {
-    let middle = Math.floor((to + from) / 2);
+    middle = Math.floor((to + from) / 2);
     if (target === nums[middle]) return middle;
     if (target < nums[middle]) {
       to = middle;
