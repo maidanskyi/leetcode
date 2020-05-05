@@ -5,6 +5,8 @@
  */
 const nextGreatestLetter = (letters, target) => {
 
+  letters = [...new Set(letters)];
+
   if (target < letters[0] || target >= letters[letters.length - 1])
     return letters[0];
 
