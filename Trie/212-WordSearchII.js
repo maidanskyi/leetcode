@@ -18,16 +18,14 @@ class Trie {
 
   }
 
-  startsWith(prefix) {
-
-    let node = this.root;
+  startsWith(prefix, startNode = this.root) {
 
     for (let char of prefix) {
-      if (!node[char]) return false;
-      node = node[char];
+      if (!startNode[char]) return null;
+      startNode = startNode[char];
     }
 
-    return true;
+    return startNode;
 
   }
 
@@ -47,35 +45,53 @@ const findWords = (board, words) => {
     i = 0,
     j = 0,
     prefix = '',
-    visited = new Set()
+    visited,
+    node = trie.root,
   ) => {
 
-    if (!board[i] || !board[i][j] || visited.has(`${i}${j}`)) return;
-
     const key = prefix + board[i][j];
+    const foundNode = trie.startsWith(board[i][j], node);
 
-    if (!trie.startsWith(key)) return;
+    if (!foundNode) return;
 
     if (set.has(key)) {
       response.push(key);
       set.delete(key);
     }
 
-    visited.add(`${i}${j}`);
+    if (board[i - 1] && board[i - 1][j] && !visited[i - 1][j]) {
+      visited[i][j] = true;
+      fn(i - 1, j, key, visited, foundNode);
+      visited[i][j] = false;
+    }
 
-    fn(i - 1, j, key, new Set(visited));
-    fn(i + 1, j, key, new Set(visited));
-    fn(i, j - 1, key, new Set(visited));
-    fn(i, j + 1, key, new Set(visited));
+    if (board[i + 1] && board[i + 1][j] && !visited[i + 1][j]) {
+      visited[i][j] = true;
+      fn(i + 1, j, key, visited, foundNode);
+      visited[i][j] = false;
+    }
 
+    if (board[i] && board[i][j - 1] && !visited[i][j - 1]) {
+      visited[i][j] = true;
+      fn(i, j - 1, key, visited, foundNode);
+      visited[i][j] = false;
+    }
+
+    if (board[i] && board[i][j + 1] && !visited[i][j + 1]) {
+      visited[i][j] = true;
+      fn(i, j + 1, key, visited, foundNode);
+      visited[i][j] = false;
+    }
   }
 
   for (let word of words) trie.insert(word);
 
+  const backtrackingArray = board.map(arr => arr.map(() => false));
+
   theEnd: for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[0].length; j++) {
       if (!set.size) break theEnd;
-      fn(i, j);
+      fn(i, j, '', backtrackingArray);
     }
   }
 
