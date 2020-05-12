@@ -19,9 +19,9 @@ const solveSudoku = (board) => {
 
     return true;
   }
-  const backtrack = (row = 0) => {
-    for (let i = row; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
+  const backtrack = (row = 0, col = 0) => {
+    for (let i = row; i < 9; i++, col = 0) {
+      for (let j = col; j < 9; j++) {
 
         if (board[i][j] !== '.') continue;
 
@@ -30,7 +30,7 @@ const solveSudoku = (board) => {
           if (isPossibleToPut(`${k}`, i, j)) {
             board[i][j] = `${k}`;
 
-            if (backtrack(i))
+            if (backtrack(i, j + 1))
               return true;
             board[i][j] = '.';
           }
