@@ -20,7 +20,6 @@ const rotate = (nums, k) => {
 }
 
 const rotateFromLeftToRight = (nums, k) => {
-  console.log('left --> right');
   while (k) {
     const temp = nums[0];
     for (let i = 0; i < nums.length; i++) {
@@ -31,7 +30,6 @@ const rotateFromLeftToRight = (nums, k) => {
   }
 }
 const rotateFromRightToLeft = (nums, k) => {
-  console.log('right --> left');
   while (k) {
     const temp = nums[nums.length - 1];
     for (let i = nums.length - 1; i > 0; i--) {
