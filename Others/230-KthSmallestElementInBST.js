@@ -13,23 +13,26 @@
  */
 const kthSmallest = (root, k) => {
 
-  const elements = [];
+  let response;
+  let count = k;
 
   const inorderTraverse = node => {
     if (!node) return;
 
     inorderTraverse(node.left);
-    elements.push(node.val);
+    count--;
+    if (!count) response = node.val;
+    if (response) return;
     inorderTraverse(node.right);
   }
 
   inorderTraverse(root);
 
-  return elements[k - 1];
+  return response;
 
 }
 
-console.log(kthSmallest({
+const obj = {
   val: 5,
   left: {
     val: 3,
@@ -53,4 +56,8 @@ console.log(kthSmallest({
     left: null,
     right: null,
   },
-}, 5));
+};
+
+for (let i = 1; i < 7; i++) {
+  console.log(i, kthSmallest(obj, i));
+}
