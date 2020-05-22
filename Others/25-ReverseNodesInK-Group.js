@@ -14,36 +14,42 @@ const reverseKGroup = (head, k) => {
 
   if (k === 1) return head;
 
-  const reverse = (node, count) => {
+  const stack = [];
+  let headNode;
 
-    let previous = null;
+  const reverse = (node = head) => {
+
     let curr = node;
-    let next;
-    let nodesCount = 1;
+    let currHead;
+    let tail;
 
-    while (count - nodesCount && curr) {
+    while (stack.length !== k && curr) {
+      stack.push(curr);
       curr = curr.next;
-      nodesCount++;
     }
 
-    if (!curr) return node;
+    if (stack.length !== k) return node;
 
-    curr = node;
-    while (count) {
-      next = curr.next;
-      curr.next = previous;
-      previous = curr;
-      curr = next;
-      count--;
+    if (!headNode) headNode = stack[k - 1];
+    currHead = stack[k - 1];
+
+    for (let i = stack.length - 1; i >= 0; i-- ) {
+      if (stack[i - 1])
+        stack[i].next = stack[i - 1];
+      else
+        tail = stack[i];
     }
 
-    node.next = reverse(curr, k);
+    stack.length = 0;
+    tail.next = curr ? reverse(curr) : null;
 
-    return previous;
+    return currHead;
 
   }
 
-  return reverse(head, k);
+  reverse();
+
+  return headNode;
 
 }
 
@@ -96,4 +102,4 @@ console.log(JSON.stringify(reverseKGroup({
       },
     },
   },
-}, 3))); // 3 -> 2 -> 1 -> 4 -> 5
+}, 33))); // 3 -> 2 -> 1 -> 4 -> 5
