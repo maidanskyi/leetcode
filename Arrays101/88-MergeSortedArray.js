@@ -7,47 +7,20 @@
  */
 const merge = (nums1, m, nums2, n) => {
 
-  const findPositionForElement = (target) => {
+  let finalAmountOfElements = m + n - 1;
 
-    let start = 0;
-    let end = m;
-    let middle;
+  while (finalAmountOfElements >= 0) {
 
-    while (start < end) {
-
-      middle = Math.floor((start + end) / 2);
-
-      if (nums1[middle] <= target && nums1[middle + 1] > target) return middle + 1;
-
-      if (nums1[middle] >= target)
-        end--;
-      else
-        start++;
-
+    if (m && nums1[m - 1] >= nums2[n - 1]) {
+      nums1[finalAmountOfElements] = nums1[m - 1];
+      m--;
+    } else if (n) {
+      nums1[finalAmountOfElements] = nums2[n - 1];
+      n--;
     }
 
-    return start;
-
+    finalAmountOfElements--;
   }
-  const insertElementAtPosition = (position, element) => {
-    for (let i = m; i > position; i--) {
-      nums1[i] = nums1[i - 1];
-    }
-
-    nums1[position] = element;
-  }
-
-  if (nums2[n - 1] <= nums1[0]) {
-    for (let i = 0; i < n; insertElementAtPosition(i, nums2[i]), m++, i++);
-    return;
-  }
-
-  if (nums2[0] >= nums1[m - 1]) {
-    for (let i = 0; i < n; insertElementAtPosition(m + i, nums2[i]), i++);
-    return;
-  }
-
-  for (let i = 0; i < n; insertElementAtPosition(findPositionForElement(nums2[i]), nums2[i]), i++, m++);
 
 }
 
