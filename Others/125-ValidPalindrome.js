@@ -6,21 +6,24 @@ const isPalindrome = (s) => {
 
   let start = 0;
   let end = s.length - 1;
-  const setCharacters = new Set([
-    'a', 'b', 'c', 'd', 'e', 'f', 'g',
-    'h', 'i', 'j', 'k', 'l', 'm', 'n',
-    'o', 'p', 'q', 'r', 's', 't', 'u',
-    'v', 'w', 'x', 'y', 'z', '0', '1',
-    '2', '3', '4', '5', '6', '7', '8', '9'
-  ]);
 
   while (start < end) {
 
-    while (!setCharacters.has(s.charAt(start).toLowerCase()) && start < end) {
+    while (
+      (
+        (s.charAt(start).toLowerCase().charCodeAt(0) < 48 || s.charAt(start).toLowerCase().charCodeAt(0) > 57)
+        && (s.charAt(start).toLowerCase().charCodeAt(0) < 97 || s.charAt(start).toLowerCase().charCodeAt(0) > 122)
+      )
+      && start < end
+    ) {
       start++;
     }
 
-    while (start < end && !setCharacters.has(s.charAt(end).toLowerCase())) {
+    while (
+      start < end && (
+        (s.charAt(end).toLowerCase().charCodeAt(0) < 48 || s.charAt(end).toLowerCase().charCodeAt(0) > 57)
+        && (s.charAt(end).toLowerCase().charCodeAt(0) < 97 || s.charAt(end).toLowerCase().charCodeAt(0) > 122)
+      )) {
       end--;
     }
 
@@ -36,5 +39,5 @@ const isPalindrome = (s) => {
 
 console.log(isPalindrome('A man, a plan, a canal: Panama')); // true
 console.log(isPalindrome('race a car')); // false
-console.log(isPalindrome('.,')); // false
+console.log(isPalindrome('.,')); // true
 console.log(isPalindrome('0P')); // false
