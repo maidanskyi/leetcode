@@ -4,15 +4,13 @@
  */
 const missingNumber = (nums) => {
 
-  nums.sort((a, b) => a - b);
+  const set = new Set(nums);
 
-  if (nums[nums.length-1] !== nums.length) return nums.length;
-  else if (nums[0] !== 0) return 0;
-
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] - nums[i - 1] > 1) return nums[i] - 1;
+  for (let i = 0; i < nums.length; i++) {
+    if (!set.has(i)) return i;
   }
 
+  return nums.length;
 }
 
 console.log(missingNumber([0])); // 1
