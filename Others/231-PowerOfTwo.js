@@ -3,20 +3,7 @@
  * @return {boolean}
  */
 const isPowerOfTwo = (n) => {
-
-  if (n < 1) return false;
-  if (n === 1) return true;
-
-  let power = 0;
-  let result = Math.pow(2, power);
-
-  while (result < n) {
-    power++;
-    result = Math.pow(2, power);
-  }
-
-  return n === result;
-
+  return Math.log2(n)%1 === 0;
 }
 
 console.log(isPowerOfTwo(1)); // true
