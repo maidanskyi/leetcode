@@ -4,30 +4,15 @@
  */
 const minimumTotal = (triangle) => {
 
-  if (triangle.length === 1) return triangle[0][0];
-
-  for (let i = 1; i < triangle.length; i++) {
+  for (let i = triangle.length - 2; i >=0; i--) {
     let j = 0;
-
     while (j < triangle[i].length) {
-
-      triangle[i][j] += Math.min(
-        triangle[i - 1][j - 1] !== undefined
-          ? triangle[i - 1][j - 1]
-          : Infinity,
-        triangle[i - 1][j] !== undefined
-          ? triangle[i - 1][j]
-          : Infinity
-      );
-
+      triangle[i][j] += Math.min(triangle[i + 1][j], triangle[i + 1][j + 1]);
       j++;
-
     }
   }
 
-  console.log(triangle);
-
-  return Math.min.apply(null, triangle[triangle.length - 1]);
+  return triangle[0][0];
 
 }
 
