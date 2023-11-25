@@ -10,7 +10,8 @@ func main() {
 	fmt.Printf("maximum is: %v\n", maximumWealth([][]int{{2, 8, 7}, {7, 1, 3}, {1, 9, 5}}))
 }
 
-func maximumWealth(accounts [][]int) int {
+// delete 2 at the end of the function name
+func maximumWealth2(accounts [][]int) int {
 	var response int
 
 	for _, banks := range accounts {
