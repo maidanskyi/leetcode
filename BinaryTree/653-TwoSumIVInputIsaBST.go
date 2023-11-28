@@ -38,6 +38,7 @@ func main() {
 	fmt.Printf("%v: %v\n", 14, findTarget(&root, 14))
 }
 
+// recursion + hashMap
 func findTarget(root *TreeNode, k int) bool {
 	var (
 		response bool
