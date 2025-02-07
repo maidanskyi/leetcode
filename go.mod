@@ -1,5 +1,5 @@
 module github.com/maidanskyi/leetcode
 
-go 1.19
+go 1.23.4
 
 require github.com/emirpasic/gods v1.18.1
